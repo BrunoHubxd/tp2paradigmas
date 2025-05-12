@@ -40,10 +40,11 @@ Se implementó el endpoint simulado para buscar medicamentos (`/api/medicamento`
 Se trabajó en la relación médico-paciente. Se simuló la búsqueda de pacientes asignados a un médico mediante un endpoint `/api/relaciones`. Se programó una función JS que consulta por nombre de médico y devuelve los pacientes asignados.
 
 **5to Día:**
-Se hicieron pruebas de integración de todas las funciones y se corrigieron errores menores en la validación de formularios y estilos visuales.
-Además, se cargó el diseño del sistema (ver imagen adjunta) que refleja el flujo de datos entre frontend, backend y almacenamiento.
+Antes de hacer las pruebas, se reestructuró el backend pasando de python a PHP ya que es mas manejable y mas robusto para páginas web.
+Luego se hicieron pruebas de integración de todas las funciones y se corrigieron errores menores en la validación de formularios y estilos visuales.
 
 **6to Día (día de entrega):**
 Se finalizó la documentación de Spring 2, se revisó todo el código, se ajustó la presentación del sistema y se dejó lista la entrega. Cada funcionalidad está conectada correctamente y simula el comportamiento esperado del sistema de gestión hospitalaria.
-El equipo mantiene la misma organización y todos los miembros participaron activamente en pruebas y mejoras.
-![Imagen de WhatsApp 2025-05-05 a las 13 25 23_3675bd74](https://github.com/user-attachments/assets/2524acfc-0ea8-4cb4-b0ec-984cfb9daff0)
+El equipo mantiene la misma organización y todos los miembros participaron activamente en código, pruebas y mejoras.
+
+
