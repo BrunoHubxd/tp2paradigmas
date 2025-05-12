@@ -24,13 +24,13 @@ Se implementó la lógica base del sistema de turnos en Python utilizando `heapq
 
 ### ---------------------------------Spring 2---------------------------------
 
-Día 1
+**Día 1**
 Se inició la integración frontend-backend. Leandro creó una base en HTML y CSS para la interfaz, que incluye formularios para solicitar turnos, buscar medicamentos y consultar relaciones médico-paciente. Mientras tanto, Sebastián desarrolló una API básica en JS simulada localmente, conectando las secciones con respuestas mockeadas para pruebas iniciales.
 
-Día 2
+**Día 2**
 Se implementó en el frontend el formulario de "Solicitud de turno". Se utilizó fetch para enviar datos por POST al endpoint /api/turno. Además, se incorporó la opción de urgencia con valores entre 1 y 5, cumpliendo con los requisitos funcionales.
 
-Día 3
+**Día 3**
 Se programó un endpoint /api/medicamento que permite consultar medicamentos con stock crítico (< 10 unidades). Para mejorar el rendimiento de la búsqueda, se implementó un árbol AVL en PHP que permite realizar búsquedas balanceadas y eficientes. El código en PHP gestiona el nombre y descripción del medicamento, mostrando una advertencia cuando el stock es bajo.
 
 php
@@ -42,7 +42,7 @@ $tree->insert("Ibuprofeno", "Antiinflamatorio");
 $tree->insert("Amoxicilina", "Antibiótico");
 
 echo "Buscar Paracetamol: " . $tree->search("Paracetamol") . "\n";
-Día 4
+**Día 4**
 Se trabajó sobre las relaciones médico-paciente. A través del endpoint /api/relaciones, se simula la consulta de pacientes asignados a cada médico. Se utilizó un grafo en PHP para representar las asignaciones entre médicos y pacientes de forma dinámica.
 
 php
@@ -52,11 +52,10 @@ $grafo = new Grafo();
 $grafo->agregarRelacion("Dr. Pérez", "Paciente1");
 $grafo->agregarRelacion("Dr. Pérez", "Paciente2");
 $grafo->agregarRelacion("Dr. Gómez", "Paciente3");
-
 $grafo->mostrarAsignaciones();
-Día 5
+
+**Día 5**
 Para mejorar la robustez del backend, se migró de Python a PHP, priorizando estabilidad en entorno web. Se realizaron pruebas de integración entre frontend y backend, corrigiendo errores menores como validaciones incompletas y estilos visuales inconsistentes.
 
-Día 6 (Entrega)
+**Día 6** (Entrega)
 Se finalizó la documentación del sprint, se revisó el código, se ajustó la presentación del sistema y se completó la entrega. El sistema simula correctamente todas las funcionalidades requeridas para la gestión hospitalaria, con una interfaz clara y lógica consistente. Todos los integrantes participaron activamente.
-
