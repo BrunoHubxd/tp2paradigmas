@@ -1,0 +1,115 @@
+
+<?php
+class AVLNode {
+    public $key;
+    public $value;
+    public $height;
+    public $left;
+    public $right;
+
+    public function __construct($key, $value) {
+        $this->key = $key;
+        $this->value = $value;
+        $this->height = 1;
+        $this->left = null;
+        $this->right = null;
+    }
+}
+
+class AVLTree {
+    private $root = null;
+
+    private function height($node) {
+        return $node ? $node->height : 0;
+    }
+
+    private function updateHeight($node) {
+        $node->height = max($this->height($node->left), $this->height($node->right)) + 1;
+    }
+
+    private function balanceFactor($node) {
+        return $this->height($node->left) - $this->height($node->right);
+    }
+
+    private function rotateRight($y) {
+        $x = $y->left;
+        $T2 = $x->right;
+        $x->right = $y;
+        $y->left = $T2;
+        $this->updateHeight($y);
+        $this->updateHeight($x);
+        return $x;
+    }
+
+    private function rotateLeft($x) {
+        $y = $x->right;
+        $T2 = $y->left;
+        $y->left = $x;
+        $x->right = $T2;
+        $this->updateHeight($x);
+        $this->updateHeight($y);
+        return $y;
+    }
+
+    private function balance($node) {
+        $this->updateHeight($node);
+        $balance = $this->balanceFactor($node);
+
+        if ($balance > 1) {
+            if ($this->balanceFactor($node->left) < 0) {
+                $node->left = $this->rotateLeft($node->left);
+            }
+            return $this->rotateRight($node);
+        }
+
+        if ($balance < -1) {
+            if ($this->balanceFactor($node->right) > 0) {
+                $node->right = $this->rotateRight($node->right);
+            }
+            return $this->rotateLeft($node);
+        }
+
+        return $node;
+    }
+
+    private function insertNode($node, $key, $value) {
+        if (!$node) return new AVLNode($key, $value);
+
+        if ($key < $node->key) {
+            $node->left = $this->insertNode($node->left, $key, $value);
+        } elseif ($key > $node->key) {
+            $node->right = $this->insertNode($node->right, $key, $value);
+        } else {
+            $node->value = $value;
+            return $node;
+        }
+
+        return $this->balance($node);
+    }
+
+    public function insert($key, $value) {
+        $this->root = $this->insertNode($this->root, $key, $value);
+    }
+
+    public function search($key) {
+        $node = $this->root;
+        while ($node) {
+            if ($key < $node->key) {
+                $node = $node->left;
+            } elseif ($key > $node->key) {
+                $node = $node->right;
+            } else {
+                return $node->value;
+            }
+        }
+        return null;
+    }
+}
+
+// Ejemplo de uso
+$tree = new AVLTree();
+$tree->insert("Paracetamol", "Fiebre y dolor");
+$tree->insert("Ibuprofeno", "Antiinflamatorio");
+$tree->insert("Amoxicilina", "Antibiótico");
+
+echo "Buscar Paracetamol: " . $tree->search("Paracetamol") . "\n";
