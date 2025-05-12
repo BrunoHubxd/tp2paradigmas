@@ -1,0 +1,36 @@
+<?php
+class Grafo {
+    private $vertices = [];
+
+    public function agregarVertice($nombre) {
+        if (!isset($this->vertices[$nombre])) {
+            $this->vertices[$nombre] = [];
+        }
+    }
+
+    public function agregarRelacion($medico, $paciente) {
+        $this->agregarVertice($medico);
+        $this->agregarVertice($paciente);
+        $this->vertices[$medico][] = $paciente;
+    }
+
+    public function mostrarAsignaciones() {
+        foreach ($this->vertices as $medico => $pacientes) {
+            if (!empty($pacientes)) {
+                echo "Médico $medico atiende a: " . implode(", ", $pacientes) . "\n";
+            }
+        }
+    }
+
+    public function obtenerPacientes($medico) {
+        return $this->vertices[$medico] ?? [];
+    }
+}
+
+// Ejemplo de uso
+$grafo = new Grafo();
+$grafo->agregarRelacion("Dr. Pérez", "Paciente1");
+$grafo->agregarRelacion("Dr. Pérez", "Paciente2");
+$grafo->agregarRelacion("Dr. Gómez", "Paciente3");
+
+$grafo->mostrarAsignaciones();
