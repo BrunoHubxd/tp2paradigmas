@@ -42,11 +42,11 @@ Se programó un sistema de stock de medicamentos. Se utilizó un árbol AVL (`AV
 **Día 4**
 Se desarrolló un grafo simple (Grafo.php) para modelar relaciones entre médicos y pacientes. Cada médico puede tener múltiples pacientes asignados. Se simula la funcionalidad de /api/relaciones.
 
-"php"
-$grafo = new Grafo();
-$grafo->agregarRelacion("Dr. Pérez", "Paciente1");
-$grafo->agregarRelacion("Dr. Gómez", "Paciente2");
-$grafo->mostrarAsignaciones();
+    "php"
+    $grafo = new Grafo();
+    $grafo->agregarRelacion("Dr. Pérez", "Paciente1");
+    $grafo->agregarRelacion("Dr. Gómez", "Paciente2");
+    $grafo->mostrarAsignaciones();
 
 **Día 5**
 Día 5
