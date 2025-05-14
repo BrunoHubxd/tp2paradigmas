@@ -1,14 +1,14 @@
-![Imagen de WhatsApp 2025-05-05 a las 13 25 23_3675bd74](https://github.com/user-attachments/assets/8c926671-2f72-4a91-b4ce-43bfe7d80ee0)
+![Captura de pantalla -2025-05-14 10-05-04](https://github.com/user-attachments/assets/ee9c5681-c9ab-4113-9b14-7d0443ed177f)
 
 ### ---------------------------------Spring 1---------------------------------
 
 **1er Día:**
 Se hizo la organización de cómo van a ser los roles en el primer spring, quedando así al menos temporalmente.
 
-* Bruno López: Líder
-* Martín Mekekiuk: Documentador/programador
+* Bruno López: Líder/Tester
+* Martín Mekekiuk: Documentador/Programador
 * Sebastián Casals: Programador Backend
-* Leandro: Programador Frontend
+* Leandro: Programador Programador Frontend
 
 **2do Día:**
 Se definió el enfoque general del sistema de turnos hospitalarios, separando las funcionalidades en módulos:
@@ -22,40 +22,106 @@ Se discutieron los criterios de urgencia (1 a 5) y cómo estos afectarían el or
 **3er Día:**
 Se implementó la lógica base del sistema de turnos en Python utilizando `heapq` para manejar la cola priorizada y una clase `Paciente`. Se probó en consola con varios pacientes simulados.
 
-### ---------------------------------Spring 2---------------------------------
+### ---------------------------------Sprint 2---------------------------------
 
 **Día 1**
-Se inició la integración frontend-backend. Leandro creó una base en HTML y CSS para la interfaz, que incluye formularios para solicitar turnos, buscar medicamentos y consultar relaciones médico-paciente. Mientras tanto, Sebastián desarrolló una API básica en JS simulada localmente, conectando las secciones con respuestas mockeadas para pruebas iniciales.
+Se inició la integración frontend-backend. Leandro creó la base de la interfaz en HTML, con formularios para solicitar turnos. Mientras tanto, Sebastián programó el backend en PHP, separando la lógica en clases reutilizables (`Paciente`, `Turnero`, `AVLTree`, `Grafo`). Se estableció una estructura ordenada de carpetas: `frontend/`, `backend/classes/`.
 
 **Día 2**
-Se implementó en el frontend el formulario de "Solicitud de turno". Se utilizó fetch para enviar datos por POST al endpoint /api/turno. Además, se incorporó la opción de urgencia con valores entre 1 y 5, cumpliendo con los requisitos funcionales.
+Se implementó el formulario "Solicitud de Turno" usando `fetch()` para enviar los datos al archivo PHP `sistema_turnos.php`. Los datos se reciben como JSON, procesan con `Turnero.php` y se guarda la sesión con el turno asignado.
 
 **Día 3**
-Se programó un endpoint /api/medicamento que permite consultar medicamentos con stock crítico (< 10 unidades). Para mejorar el rendimiento de la búsqueda, se implementó un árbol AVL en PHP que permite realizar búsquedas balanceadas y eficientes. El código en PHP gestiona el nombre y descripción del medicamento, mostrando una advertencia cuando el stock es bajo.
+Se programó un sistema de stock de medicamentos. Se utilizó un árbol AVL (`AVLTree.php`) para realizar búsquedas eficientes. Si un medicamento tiene stock menor a 10 unidades, se muestra una advertencia. La simulación se realiza en consola o mediante una función futura en frontend.
 
-php
-Copy
-Edit
+"php"
 $tree = new AVLTree();
 $tree->insert("Paracetamol", "Fiebre y dolor");
 $tree->insert("Ibuprofeno", "Antiinflamatorio");
-$tree->insert("Amoxicilina", "Antibiótico");
-
 echo "Buscar Paracetamol: " . $tree->search("Paracetamol") . "\n";
-**Día 4**
-Se trabajó sobre las relaciones médico-paciente. A través del endpoint /api/relaciones, se simula la consulta de pacientes asignados a cada médico. Se utilizó un grafo en PHP para representar las asignaciones entre médicos y pacientes de forma dinámica.
 
-php
-Copy
-Edit
+**Día 4**
+Se desarrolló un grafo simple (Grafo.php) para modelar relaciones entre médicos y pacientes. Cada médico puede tener múltiples pacientes asignados. Se simula la funcionalidad de /api/relaciones.
+
+"php"
 $grafo = new Grafo();
 $grafo->agregarRelacion("Dr. Pérez", "Paciente1");
-$grafo->agregarRelacion("Dr. Pérez", "Paciente2");
-$grafo->agregarRelacion("Dr. Gómez", "Paciente3");
+$grafo->agregarRelacion("Dr. Gómez", "Paciente2");
 $grafo->mostrarAsignaciones();
 
 **Día 5**
-Para mejorar la robustez del backend, se migró de Python a PHP, priorizando estabilidad en entorno web. Se realizaron pruebas de integración entre frontend y backend, corrigiendo errores menores como validaciones incompletas y estilos visuales inconsistentes.
+Día 5
+Para mejorar la robustez del backend, se migró de Python a PHP, priorizando estabilidad en entorno web. Se realizaron pruebas de integración frontend-backend, corrigiendo errores menores y validaciones. Se añadió persistencia usando sesiones PHP.
 
-**Día 6** (Entrega)
-Se finalizó la documentación del sprint, se revisó el código, se ajustó la presentación del sistema y se completó la entrega. El sistema simula correctamente todas las funcionalidades requeridas para la gestión hospitalaria, con una interfaz clara y lógica consistente. Todos los integrantes participaron activamente.
+**Día 6**
+Se finalizó la documentación del sprint, se revisó el código, se ajustó la presentación del sistema y se completó la entrega. El sistema simula correctamente todas las funcionalidades requeridas, con una interfaz clara y lógica consistente. Todos los integrantes participaron activamente.
+
+
+····Explicación de conexiones entre archivos····
+-*frontend/index.html**
+
+    Es la interfaz visual.
+
+    Tiene un formulario para solicitar turnos y un botón para llamar al siguiente paciente.
+
+    Usa fetch() para enviar datos en formato JSON al backend (sistema_turnos.php).
+
+-*backend/sistema_turnos.php**
+
+    Recibe las solicitudes del frontend mediante POST.
+
+    Usa $_SESSION para mantener persistente la instancia del Turnero.
+
+    Dependencias:
+
+        Turnero.php → contiene la lógica de turnos.
+
+        Paciente.php → define la clase del paciente.
+
+    Funciones:
+
+        accion = solicitar → agrega el paciente a la cola priorizada.
+
+        accion = llamar → extrae al siguiente paciente según urgencia.
+
+-*backend/classes/Paciente.php**
+
+    Define la clase Paciente con nombre, DNI y nivel de urgencia.
+
+-*backend/classes/Turnero.php**
+
+    Administra la cola de turnos con prioridades (urgencia más alta tiene mayor prioridad).
+
+    Usa SplPriorityQueue de PHP.
+
+    Funciones:
+
+        solicitarTurno(Paciente) → lo encola.
+
+        llamarSiguiente() → retorna el paciente más urgente.
+
+        hayTurnos() → indica si hay pacientes esperando.
+
+-*backend/classes/AVLTree.php + Medicamento.php**
+
+    Permiten insertar y buscar medicamentos en un árbol AVL.
+
+    La búsqueda es rápida y balanceada.
+
+    Se simula el endpoint /api/medicamento.
+
+-*backend/classes/Grafo.php**
+
+    Permite agregar relaciones entre médicos y pacientes.
+
+    Se utiliza en /api/relaciones.
+
+### ---------------------------------Sprint 3---------------------------------
+## ✅ Ideas para funcionalidades Sprint 3
+
+1. ✅ **Historial de pacientes atendidos** (guardarlos en archivo o base de datos).
+2. ✅ **Login médico / administrativo** para ver panel distinto.
+3. ✅ **Filtro de turnos por urgencia en pantalla**.
+4. ✅ **Formulario para registrar medicamentos** (cargar más en el AVL).
+5. ✅ **Interfaz visual del grafo** (mostrar relaciones con JavaScript tipo Graphviz).
+6. ✅ **Contador de turnos atendidos por día**.
+7. ✅ **Simulación multiconsultorio**: atender pacientes por médico.
