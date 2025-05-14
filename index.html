@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hospital - Gestión de Turnos</title>
+</head>
+<body>
+    <h1>Solicitar Turno</h1>
+    <form id="turnoForm">
+        <input type="text" name="nombre" placeholder="Nombre" required><br>
+        <input type="text" name="dni" placeholder="DNI" required><br>
+        <input type="number" name="urgencia" min="1" max="5" placeholder="Urgencia" required><br>
+        <button type="submit">Solicitar Turno</button>
+    </form>
+
+    <button onclick="llamarSiguiente()">Llamar siguiente</button>
+
+    <h2 id="resultado"></h2>
+
+    <script>
+        document.getElementById('turnoForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const data = {
+                accion: 'solicitar',
+                nombre: this.nombre.value,
+                dni: this.dni.value,
+                urgencia: parseInt(this.urgencia.value)
+            };
+            const res = await fetch('../api/turno.php', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            });
+            const json = await res.json();
+            document.getElementById('resultado').textContent = json.mensaje;
+        });
+
+        async function llamarSiguiente() {
+            const res = await fetch('../api/turno.php', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({accion: 'llamar'})
+            });
+            const json = await res.json();
+            document.getElementById('resultado').textContent = json.mensaje + (json.nombre ? ': ' + json.nombre : '');
+        }
+    </script>
+</body>
+</html>
