@@ -33,11 +33,11 @@ Se implementó el formulario "Solicitud de Turno" usando `fetch()` para enviar l
 **Día 3**
 Se programó un sistema de stock de medicamentos. Se utilizó un árbol AVL (`AVLTree.php`) para realizar búsquedas eficientes. Si un medicamento tiene stock menor a 10 unidades, se muestra una advertencia. La simulación se realiza en consola o mediante una función futura en frontend.
 
-"php"
-$tree = new AVLTree();
-$tree->insert("Paracetamol", "Fiebre y dolor");
-$tree->insert("Ibuprofeno", "Antiinflamatorio");
-echo "Buscar Paracetamol: " . $tree->search("Paracetamol") . "\n";
+    "php"
+    $tree = new AVLTree();
+    $tree->insert("Paracetamol", "Fiebre y dolor");
+    $tree->insert("Ibuprofeno", "Antiinflamatorio");
+    echo "Buscar Paracetamol: " . $tree->search("Paracetamol") . "\n";
 
 **Día 4**
 Se desarrolló un grafo simple (Grafo.php) para modelar relaciones entre médicos y pacientes. Cada médico puede tener múltiples pacientes asignados. Se simula la funcionalidad de /api/relaciones.
@@ -57,6 +57,7 @@ Se finalizó la documentación del sprint, se revisó el código, se ajustó la 
 
 
 ····Explicación de conexiones entre archivos····
+
 -*frontend/index.html**
 
     Es la interfaz visual.
