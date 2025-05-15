@@ -126,3 +126,26 @@ Se finalizó la documentación del sprint, se revisó el código, se ajustó la 
 5. ✅ **Interfaz visual del grafo** (mostrar relaciones con JavaScript tipo Graphviz).
 6. ✅ **Contador de turnos atendidos por día**.
 7. ✅ **Simulación multiconsultorio**: atender pacientes por médico.
+
+
+📅 **Día 1**
+Revisión y reorganización del sistema tras entrevista técnica
+Durante la primera jornada del Sprint 3, se llevó a cabo una entrevista con el profesor (simulando el rol de inversor), en la cual se identificó un aspecto clave que no había sido contemplado correctamente en etapas anteriores: la definición previa de la base de datos.
+
+Hasta este punto, el equipo había avanzado principalmente en el desarrollo de la interfaz visual (HTML y CSS), sin contar con una estructura clara ni implementada de la base de datos que sirviera como respaldo para las funcionalidades del sistema. Esta situación generó un inconveniente en la integración entre frontend y backend, dado que no se disponía aún de una lógica persistente para el almacenamiento de información.
+
+🛠 Acciones tomadas:
+Se reordenó la planificación del Sprint 3, priorizando la creación del esquema de la base de datos como punto de partida estructural del sistema.
+-Se decidió diseñar las tablas necesarias para:
+-Pacientes atendidos (historial)
+-Usuarios (médicos y personal administrativo)
+-Turnos registrados
+-Medicamentos (stock y propiedades)
+
+• Se optó por implementar una base de datos en MySQL y vincularla al backend en PHP mediante conexiones PDO.
+
+• Además, se incorporó el uso de control de versiones con Git, creando un repositorio local y remoto para asegurar trazabilidad de cambios y trabajo colaborativo más ordenado.
+
+🧩 Conclusión del día:
+Este día marcó un punto de inflexión en la organización técnica del proyecto. El equipo comprendió la importancia de contar con una base sólida a nivel de datos antes de avanzar en el diseño visual o en la lógica de negocio avanzada. Como resultado, se redefinieron las prioridades del Sprint para asegurar la coherencia del sistema completo.
+
