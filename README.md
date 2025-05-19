@@ -1,147 +1,46 @@
 ![Captura de pantalla -2025-05-14 10-05-04](https://github.com/user-attachments/assets/ee9c5681-c9ab-4113-9b14-7d0443ed177f)
 
-Nombre del equipo: HOSPITAL
+**Nombre del equipo: 🏥 HOSPITAL Software Group**
 
-* Bruno López: Líder/Tester
-* Martín Mekekiuk: Documentador/Programador
-* Sebastián Casals: Programador Backend
-* Leandro: Programador Programador Frontend
+👥 **Presentación del Equipo de Desarrollo**
+El equipo HOSPITAL está conformado por un grupo interdisciplinario de estudiantes comprometidos con el diseño, desarrollo y documentación de soluciones informáticas aplicadas al ámbito hospitalario. Nuestra misión es contribuir a la mejora de los sistemas de gestión en centros de salud mediante herramientas tecnológicas ágiles, eficientes y orientadas al usuario.
 
-Herramientas utilizadas: Github para manejar el código - PHP para el backend - HTML + CSS para diseñar la interfaz web - Jira, para ver los avances de las funcionalidades, para hacer, en proceso y ya hechas
+Integrantes del equipo:
 
-1. Solicitud de turno con prioridades
-2. Gestión de stock de medicamentos
-3. Relaciones médico-paciente
+Bruno López
+Rol: Líder de equipo / Tester
+Responsabilidades: Coordinación general del grupo, validación funcional del sistema, pruebas de calidad y seguimiento de entregables.
 
-Se discutieron los criterios de urgencia (1 a 5) y cómo estos afectarían el orden de atención de los pacientes.
+Martín Mekekiuk
+Rol: Documentador / Programador
+Responsabilidades: Redacción técnica de la documentación del sistema, apoyo en desarrollo backend y mantenimiento del repositorio.
 
-**3er Día:**
-Se implementó la lógica base del sistema de turnos en Python utilizando `heapq` para manejar la cola priorizada y una clase `Paciente`. Se probó en consola con varios pacientes simulados.
+Sebastián Casals
+Rol: Programador Backend
+Responsabilidades: Lógica del servidor, implementación de estructuras de datos, conexión con bases de datos, y gestión de recursos del sistema.
 
-### ---------------------------------Sprint 2---------------------------------
-
-**Día 1**
-Se inició la integración frontend-backend. Leandro creó la base de la interfaz en HTML, con formularios para solicitar turnos. Mientras tanto, Sebastián programó el backend en PHP, separando la lógica en clases reutilizables (`Paciente`, `Turnero`, `AVLTree`, `Grafo`). Se estableció una estructura ordenada de carpetas: `frontend/`, `backend/classes/`.
-
-**Día 2**
-Se implementó el formulario "Solicitud de Turno" usando `fetch()` para enviar los datos al archivo PHP `sistema_turnos.php`. Los datos se reciben como JSON, procesan con `Turnero.php` y se guarda la sesión con el turno asignado.
-
-**Día 3**
-Se programó un sistema de stock de medicamentos. Se utilizó un árbol AVL (`AVLTree.php`) para realizar búsquedas eficientes. Si un medicamento tiene stock menor a 10 unidades, se muestra una advertencia. La simulación se realiza en consola o mediante una función futura en frontend.
-
-    "php"
-    $tree = new AVLTree();
-    $tree->insert("Paracetamol", "Fiebre y dolor");
-    $tree->insert("Ibuprofeno", "Antiinflamatorio");
-    echo "Buscar Paracetamol: " . $tree->search("Paracetamol") . "\n";
-
-**Día 4**
-Se desarrolló un grafo simple (Grafo.php) para modelar relaciones entre médicos y pacientes. Cada médico puede tener múltiples pacientes asignados. Se simula la funcionalidad de /api/relaciones.
-
-    "php"
-    $grafo = new Grafo();
-    $grafo->agregarRelacion("Dr. Pérez", "Paciente1");
-    $grafo->agregarRelacion("Dr. Gómez", "Paciente2");
-    $grafo->mostrarAsignaciones();
-
-**Día 5**
-Día 5
-Para mejorar la robustez del backend, se migró de Python a PHP, priorizando estabilidad en entorno web. Se realizaron pruebas de integración frontend-backend, corrigiendo errores menores y validaciones. Se añadió persistencia usando sesiones PHP.
-
-**Día 6**
-Se finalizó la documentación del sprint, se revisó el código, se ajustó la presentación del sistema y se completó la entrega. El sistema simula correctamente todas las funcionalidades requeridas, con una interfaz clara y lógica consistente. Todos los integrantes participaron activamente.
+Leandro Acosta
+Rol: Programador Frontend
+Responsabilidades: Desarrollo de la interfaz de usuario, maquetado y experiencia visual accesible para todos los perfiles de usuarios.
 
 
-····Explicación de conexiones entre archivos····
+🛠️ **Tecnologías y Herramientas Utilizadas**
+Para garantizar una solución robusta, escalable y bien organizada, el equipo hace uso de las siguientes herramientas tecnológicas:
 
--*frontend/index.html**
-
-    Es la interfaz visual.
-
-    Tiene un formulario para solicitar turnos y un botón para llamar al siguiente paciente.
-
-    Usa fetch() para enviar datos en formato JSON al backend (sistema_turnos.php).
-
--*backend/sistema_turnos.php**
-
-    Recibe las solicitudes del frontend mediante POST.
-
-    Usa $_SESSION para mantener persistente la instancia del Turnero.
-
-    Dependencias:
-
-        Turnero.php → contiene la lógica de turnos.
-
-        Paciente.php → define la clase del paciente.
-
-    Funciones:
-
-        accion = solicitar → agrega el paciente a la cola priorizada.
-
-        accion = llamar → extrae al siguiente paciente según urgencia.
-
--*backend/classes/Paciente.php**
-
-    Define la clase Paciente con nombre, DNI y nivel de urgencia.
-
--*backend/classes/Turnero.php**
-
-    Administra la cola de turnos con prioridades (urgencia más alta tiene mayor prioridad).
-
-    Usa SplPriorityQueue de PHP.
-
-    Funciones:
-
-        solicitarTurno(Paciente) → lo encola.
-
-        llamarSiguiente() → retorna el paciente más urgente.
-
-        hayTurnos() → indica si hay pacientes esperando.
-
--*backend/classes/AVLTree.php + Medicamento.php**
-
-    Permiten insertar y buscar medicamentos en un árbol AVL.
-
-    La búsqueda es rápida y balanceada.
-
-    Se simula el endpoint /api/medicamento.
-
--*backend/classes/Grafo.php**
-
-    Permite agregar relaciones entre médicos y pacientes.
-
-    Se utiliza en /api/relaciones.
-
-### ---------------------------------Sprint 3---------------------------------
-## ✅ Ideas para funcionalidades Sprint 3
-
-1. ✅ **Historial de pacientes atendidos** (guardarlos en archivo o base de datos).
-2. ✅ **Login médico / administrativo** para ver panel distinto.
-3. ✅ **Filtro de turnos por urgencia en pantalla**.
-4. ✅ **Formulario para registrar medicamentos** (cargar más en el AVL).
-5. ✅ **Interfaz visual del grafo** (mostrar relaciones con JavaScript tipo Graphviz).
-6. ✅ **Contador de turnos atendidos por día**.
-7. ✅ **Simulación multiconsultorio**: atender pacientes por médico.
+**GitHub:** Control de versiones y colaboración remota en el desarrollo del código fuente.
+**PHP:** Lenguaje utilizado para el desarrollo del backend y procesamiento de lógica del servidor.
+**HTML y CSS:** Tecnologías empleadas para la creación de la interfaz gráfica y la estructura visual del sitio.
+**Jira:** Plataforma de gestión ágil para el seguimiento de tareas en sus distintos estados: pendientes, en proceso y completadas.
 
 
-📅 **Día 1**
-Revisión y reorganización del sistema tras entrevista técnica
-Durante la primera jornada del Sprint 3, se llevó a cabo una entrevista con el profesor (simulando el rol de inversor), en la cual se identificó un aspecto clave que no había sido contemplado correctamente en etapas anteriores: la definición previa de la base de datos.
+📆 **Horarios de Reunión y Normas Éticas del Equipo**
+Reuniones del equipo:
+Las reuniones de coordinación general se realizan los lunes a las 18:00 hs, vía Discord. Se pueden acordar encuentros extraordinarios según necesidad del sprint o etapa del proyecto.
 
-Hasta este punto, el equipo había avanzado principalmente en el desarrollo de la interfaz visual (HTML y CSS), sin contar con una estructura clara ni implementada de la base de datos que sirviera como respaldo para las funcionalidades del sistema. Esta situación generó un inconveniente en la integración entre frontend y backend, dado que no se disponía aún de una lógica persistente para el almacenamiento de información.
-
-🛠 Acciones tomadas:
-Se reordenó la planificación del Sprint 3, priorizando la creación del esquema de la base de datos como punto de partida estructural del sistema.
--Se decidió diseñar las tablas necesarias para:
--Pacientes atendidos (historial)
--Usuarios (médicos y personal administrativo)
--Turnos registrados
--Medicamentos (stock y propiedades)
-
-• Se optó por implementar una base de datos en MySQL y vincularla al backend en PHP mediante conexiones PDO.
-
-• Además, se incorporó el uso de control de versiones con Git, creando un repositorio local y remoto para asegurar trazabilidad de cambios y trabajo colaborativo más ordenado.
-
-🧩 Conclusión del día:
-Este día marcó un punto de inflexión en la organización técnica del proyecto. El equipo comprendió la importancia de contar con una base sólida a nivel de datos antes de avanzar en el diseño visual o en la lógica de negocio avanzada. Como resultado, se redefinieron las prioridades del Sprint para asegurar la coherencia del sistema completo.
-
+Reglas éticas y de trabajo del equipo HOSPITAL:
+Compromiso y responsabilidad: Cada integrante se compromete a cumplir con las tareas asignadas y respetar los plazos y sus roles establecidos, contribuyendo activamente al avance del proyecto. 
+Comunicación efectiva y respeto mutuo: Se fomenta un ambiente de diálogo constructivo y respetuoso, en el que todas las opiniones sean escuchadas y valoradas.
+Transparencia y honestidad: Toda dificultad debe ser comunicada de manera oportuna para buscar soluciones conjuntas, evitando omisiones que afecten el rendimiento grupal.
+Calidad y mejora continua: Se promueve el desarrollo de un software que cumpla con altos estándares técnicos y funcionales, con revisiones periódicas y testing constante.
+Distribución equitativa de tareas: Las responsabilidades serán asignadas de forma equilibrada para garantizar el aprendizaje y la participación activa de todos los miembros.
+Colaboración y ayuda mutua: En caso de que un integrante necesite soporte técnico o académico, los demás estarán disponibles para asistir, priorizando el trabajo en equipo.
