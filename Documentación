@@ -126,30 +126,40 @@ Se finalizó la documentación del sprint, se revisó el código, se ajustó la 
 7. ✅ **Simulación multiconsultorio**: atender pacientes por médico.
 
 
-📅 **Día 1**
-Revisión y reorganización del sistema tras entrevista técnica
-Durante la primera jornada del Sprint 3, se llevó a cabo una entrevista con el profesor (simulando el rol de inversor), en la cual se identificó un aspecto clave que no había sido contemplado correctamente en etapas anteriores: la definición previa de la base de datos.
+📅 Día 1 – Diagnóstico técnico y reorientación del enfoque del proyecto
+Durante el primer día del Sprint 3, el equipo mantuvo una reunión técnica simulando una entrevista con el profesor en el rol de inversor. En esta instancia se identificó un déficit crítico en la planificación técnica: hasta el momento no se había definido formalmente la base de datos, elemento esencial para garantizar la persistencia y gestión coherente de la información del sistema hospitalario.
 
-Hasta este punto, el equipo había avanzado principalmente en el desarrollo de la interfaz visual (HTML y CSS), sin contar con una estructura clara ni implementada de la base de datos que sirviera como respaldo para las funcionalidades del sistema. Esta situación generó un inconveniente en la integración entre frontend y backend, dado que no se disponía aún de una lógica persistente para el almacenamiento de información.
+❗ Problemática detectada:
+El desarrollo previo había estado centrado en la creación del frontend (HTML/CSS), sin una estructura de datos concreta ni tablas relacionales implementadas. Esta ausencia generaba una barrera para el avance del backend en PHP, ya que no existía una lógica persistente que permitiera realizar operaciones CRUD de manera consistente.
 
-🛠 Acciones tomadas:
-Se reordenó la planificación del Sprint 3, priorizando la creación del esquema de la base de datos como punto de partida estructural del sistema.
--Se decidió diseñar las tablas necesarias para:
--Pacientes atendidos (historial)
--Usuarios (médicos y personal administrativo)
--Turnos registrados
--Medicamentos (stock y propiedades)
+🛠 Acciones correctivas:
+Se reorganizó la planificación del Sprint 3, priorizando el diseño e implementación de la base de datos como eje central del sistema.
+Se definió el conjunto de entidades y relaciones necesarias, a partir de los requerimientos funcionales ya definidos.
+Se optó por MySQL como sistema gestor de base de datos, accediendo a él a través de phpMyAdmin, y se implementó conexión al backend mediante PDO (PHP Data Objects).
+Se estableció control de versiones con Git (repositorio local y remoto), permitiendo mantener trazabilidad y un trabajo colaborativo ordenado.
 
-• Se optó por implementar una base de datos en MySQL y vincularla al backend en PHP mediante conexiones PDO.
+📅 Días 2 y 3 – Implementación definitiva de la base de datos y vinculación con backend
+Durante estas jornadas se procedió a crear la base de datos denominada hospital_gestion en MySQL, incluyendo las tablas y relaciones necesarias. La creación se realizó a través de un script SQL ejecutado en phpMyAdmin, cuyo éxito se verificó visualmente en la interfaz y funcionalmente mediante pruebas de conexión con el backend en PHP.
 
-• Además, se incorporó el uso de control de versiones con Git, creando un repositorio local y remoto para asegurar trazabilidad de cambios y trabajo colaborativo más ordenado.
+**Estructura de la base de datos implementada:** 
+**Tabla**	Descripción
+------------------------
+**pacientes**	Registra a los pacientes con campos como nombre, DNI (único), nivel de urgencia, síntomas, estado actual y fecha de registro.
+**turnos**	Contiene los turnos registrados por los pacientes, incluyendo estado (pendiente, atendido, cancelado), fecha y relación directa con pacientes.
+**medicamentos**	Controla el stock de medicamentos, registrando nombre, cantidad disponible y fecha de vencimiento.
+**medicos	Almacena** información del personal médico (nombre, especialidad).
+**asignaciones**	Relación muchos-a-muchos entre médicos y pacientes, incluyendo la fecha de asignación.
+**historial_consultas**	Registra consultas previas de los pacientes, permitiendo crear un historial clínico, incluyendo fecha, descripción y vinculación con paciente.
+**camas**	Representa el estado de ocupación de camas hospitalarias, indicando si están libres u ocupadas, y el paciente asociado si corresponde.
 
-🧩 Conclusión del día:
-Este día marcó un punto de inflexión en la organización técnica del proyecto. El equipo comprendió la importancia de contar con una base sólida a nivel de datos antes de avanzar en el diseño visual o en la lógica de negocio avanzada. Como resultado, se redefinieron las prioridades del Sprint para asegurar la coherencia del sistema completo.
+📌 Relación entre tablas:
+Las tablas están vinculadas mediante claves foráneas (FOREIGN KEY) para garantizar integridad referencial:
+turnos, historial_consultas, camas y asignaciones se relacionan directamente con pacientes.
+asignaciones también se relaciona con medicos.
 
-📅 **Día 2 y 3**
+🔗 Conexión a backend:
+Se realizaron pruebas de conexión utilizando PHP con PDO, confirmando que el sistema puede:
+Insertar datos desde formularios web.
+Recuperar registros desde la base de datos para mostrarlos en la interfaz.
+Realizar operaciones de actualización y eliminación respetando las restricciones definidas.
 
-
-
-
-Creación de la Base de Datos con todas sus tablas correspondientes tablas y adaptación del código para poder conectar con las BD
