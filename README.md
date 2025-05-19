@@ -1,17 +1,13 @@
 ![Captura de pantalla -2025-05-14 10-05-04](https://github.com/user-attachments/assets/ee9c5681-c9ab-4113-9b14-7d0443ed177f)
 
-### ---------------------------------Spring 1---------------------------------
-
-**1er Día:**
-Se hizo la organización de cómo van a ser los roles en el primer spring, quedando así al menos temporalmente.
+Nombre del equipo: HOSPITAL
 
 * Bruno López: Líder/Tester
 * Martín Mekekiuk: Documentador/Programador
 * Sebastián Casals: Programador Backend
 * Leandro: Programador Programador Frontend
 
-**2do Día:**
-Se definió el enfoque general del sistema de turnos hospitalarios, separando las funcionalidades en módulos:
+Herramientas utilizadas: Github para manejar el código - PHP para el backend - HTML + CSS para diseñar la interfaz web - Jira, para ver los avances de las funcionalidades, para hacer, en proceso y ya hechas
 
 1. Solicitud de turno con prioridades
 2. Gestión de stock de medicamentos
