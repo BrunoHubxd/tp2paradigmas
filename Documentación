@@ -1,4 +1,4 @@
-### ---------------------------------Spring 1---------------------------------
+### ---------------------------------Sprint 1---------------------------------
 
 **1er Día:**
 Se hizo la organización de cómo van a ser los roles en el primer spring, quedando así al menos temporalmente.
@@ -147,7 +147,7 @@ Durante estas jornadas se procedió a crear la base de datos denominada hospital
 **pacientes**	Registra a los pacientes con campos como nombre, DNI (único), nivel de urgencia, síntomas, estado actual y fecha de registro.
 **turnos**	Contiene los turnos registrados por los pacientes, incluyendo estado (pendiente, atendido, cancelado), fecha y relación directa con pacientes.
 **medicamentos**	Controla el stock de medicamentos, registrando nombre, cantidad disponible y fecha de vencimiento.
-**medicos	Almacena** información del personal médico (nombre, especialidad).
+**medicos** Almacena información del personal médico (nombre, especialidad).
 **asignaciones**	Relación muchos-a-muchos entre médicos y pacientes, incluyendo la fecha de asignación.
 **historial_consultas**	Registra consultas previas de los pacientes, permitiendo crear un historial clínico, incluyendo fecha, descripción y vinculación con paciente.
 **camas**	Representa el estado de ocupación de camas hospitalarias, indicando si están libres u ocupadas, y el paciente asociado si corresponde.
