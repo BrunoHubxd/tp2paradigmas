@@ -270,12 +270,8 @@ Se ajustó la validación en ver_historial_consultas.php.
 
 Se modificaron los controladores para permitir valores opcionales controlados y se agregó manejo de excepciones.
 
-📌 Lección aprendida:
+Problema solucionado
 La validación de datos no debe depender exclusivamente del frontend. 
 El backend debe contemplar escenarios faltantes y retornar mensajes de error amigables para facilitar la depuración y experiencia de usuario.
 
-🔚 Tareas pendientes para cierre de Sprint
-Integrar función de finalización de consulta (registro en historial desde botón en interfaz).
-Añadir botón para cargar medicamentos visualmente.
-Mostrar al paciente el estado actual de su turno tras registrarse (esperando, en consulta, atendido).
-Crear módulo para gestión de usuarios (crear cuentas para médicos y admins).
+### ---------------------------------Sprint 5---------------------------------
