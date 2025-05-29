@@ -115,51 +115,167 @@ Se finalizó la documentación del sprint, se revisó el código, se ajustó la 
     Se utiliza en /api/relaciones.
 
 ### ---------------------------------Sprint 3---------------------------------
-## ✅ Ideas para funcionalidades Sprint 3
 
-1. ✅ **Historial de pacientes atendidos** (guardarlos en archivo o base de datos).
-2. ✅ **Login médico / administrativo** para ver panel distinto.
-3. ✅ **Filtro de turnos por urgencia en pantalla**.
-4. ✅ **Formulario para registrar medicamentos** (cargar más en el AVL).
-5. ✅ **Interfaz visual del grafo** (mostrar relaciones con JavaScript tipo Graphviz).
-6. ✅ **Contador de turnos atendidos por día**.
-7. ✅ **Simulación multiconsultorio**: atender pacientes por médico.
+Consolidación del Backend, Reestructuración del Frontend y Normalización de la Base de Datos
 
+📅 Día 1 – Diagnóstico técnico y reorientación estructural del sistema
+En esta primera jornada se llevó a cabo una entrevista técnica simulada con el docente en rol de inversor. 
+Se identificó un error clave de planificación: el desarrollo del sistema carecía de una estructura persistente en base de datos. 
+Hasta ese momento, el equipo había avanzado principalmente con formularios y vistas HTML, sin un respaldo formal que organizara los datos, lo que impedía una integración real entre frontend y backend.
 
-📅 Día 1 – Diagnóstico técnico y reorientación del enfoque del proyecto
-Durante el primer día del Sprint 3, el equipo mantuvo una reunión técnica simulando una entrevista con el profesor en el rol de inversor. En esta instancia se identificó un déficit crítico en la planificación técnica: hasta el momento no se había definido formalmente la base de datos, elemento esencial para garantizar la persistencia y gestión coherente de la información del sistema hospitalario.
+🛠 Acciones tomadas:
+Se reformuló el enfoque del Sprint priorizando el diseño de la base de datos como punto de partida.
+Se decidió implementar la base de datos en MySQL, gestionada con phpMyAdmin.
 
-❗ Problemática detectada:
-El desarrollo previo había estado centrado en la creación del frontend (HTML/CSS), sin una estructura de datos concreta ni tablas relacionales implementadas. Esta ausencia generaba una barrera para el avance del backend en PHP, ya que no existía una lógica persistente que permitiera realizar operaciones CRUD de manera consistente.
+📅 Día 2 – Creación e implementación de la base de datos hospital_gestion
+Se diseñó e implementó el esquema relacional de la base de datos a través de un script SQL ejecutado en phpMyAdmin, incluyendo tablas con claves primarias, foráneas y relaciones integradas.
 
-🛠 Acciones correctivas:
-Se reorganizó la planificación del Sprint 3, priorizando el diseño e implementación de la base de datos como eje central del sistema.
-Se definió el conjunto de entidades y relaciones necesarias, a partir de los requerimientos funcionales ya definidos.
-Se optó por MySQL como sistema gestor de base de datos, accediendo a él a través de phpMyAdmin, y se implementó conexión al backend mediante PDO (PHP Data Objects).
-Se estableció control de versiones con Git (repositorio local y remoto), permitiendo mantener trazabilidad y un trabajo colaborativo ordenado.
+🧱 Tablas creadas:
+pacientes
+turnos
+medicamentos
+medicos
+asignaciones (médico-paciente)
+historial_consultas
+camas
 
-📅 Días 2 y 3 – Implementación definitiva de la base de datos y vinculación con backend
-Durante estas jornadas se procedió a crear la base de datos denominada hospital_gestion en MySQL, incluyendo las tablas y relaciones necesarias. La creación se realizó a través de un script SQL ejecutado en phpMyAdmin, cuyo éxito se verificó visualmente en la interfaz y funcionalmente mediante pruebas de conexión con el backend en PHP.
+📌 Relaciones:
+Las tablas se encuentran conectadas a través de FOREIGN KEY para garantizar integridad referencial. 
+Por ejemplo, turnos, camas y historial_consultas se relacionan directamente con pacientes, y asignaciones vincula medicos con pacientes.
 
-**Estructura de la base de datos implementada:** 
-**Tabla**	Descripción
-------------------------
-**pacientes**	Registra a los pacientes con campos como nombre, DNI (único), nivel de urgencia, síntomas, estado actual y fecha de registro.
-**turnos**	Contiene los turnos registrados por los pacientes, incluyendo estado (pendiente, atendido, cancelado), fecha y relación directa con pacientes.
-**medicamentos**	Controla el stock de medicamentos, registrando nombre, cantidad disponible y fecha de vencimiento.
-**medicos** Almacena información del personal médico (nombre, especialidad).
-**asignaciones**	Relación muchos-a-muchos entre médicos y pacientes, incluyendo la fecha de asignación.
-**historial_consultas**	Registra consultas previas de los pacientes, permitiendo crear un historial clínico, incluyendo fecha, descripción y vinculación con paciente.
-**camas**	Representa el estado de ocupación de camas hospitalarias, indicando si están libres u ocupadas, y el paciente asociado si corresponde.
+📅 Día 3 – Vinculación entre backend y base de datos + validación de conexión
+Se codificó la lógica en PHP para establecer conexión con la base de datos mediante PDO, probando la inserción y recuperación de datos a través de formularios simples.
 
-📌 Relación entre tablas:
-Las tablas están vinculadas mediante claves foráneas (FOREIGN KEY) para garantizar integridad referencial:
-turnos, historial_consultas, camas y asignaciones se relacionan directamente con pacientes.
-asignaciones también se relaciona con medicos.
+Además, se consolidó la separación entre backend (controllers, classes) y frontend (views), respetando el patrón MVC a pequeña escala. Se realizaron pruebas unitarias de conexión y consultas básicas.
 
-🔗 Conexión a backend:
-Se realizaron pruebas de conexión utilizando PHP con PDO, confirmando que el sistema puede:
-Insertar datos desde formularios web.
-Recuperar registros desde la base de datos para mostrarlos en la interfaz.
-Realizar operaciones de actualización y eliminación respetando las restricciones definidas.
+📅 Día 4 – Reestructuración de interfaz: separación de vistas por perfil
+Se procedió a reorganizar el frontend separando las vistas y formularios según el tipo de usuario: pacientes y personal médico. Esto resolvió un problema anterior donde todas las funciones estaban mezcladas en una única vista, generando confusión en la lógica de interacción.
 
+🧩 Organización de vistas:
+/frontend/views/inicio.html: pantalla de entrada con botones diferenciados.
+/frontend/views/solicitar_turno.html: formulario exclusivo para pacientes.
+/frontend/views/login.html: login exclusivo para personal de salud.
+
+📅 Día 5 – Implementación de lógica de turnos y simulación de atención
+Se adaptó el backend en PHP para recibir las solicitudes desde el formulario del paciente (solicitar_turno.html) a través de registrar.php, que inserta el turno en la base de datos y muestra confirmación.
+La lógica se apoya en clases reutilizables:
+Paciente.php: define estructura y métodos para pacientes.
+Turnero.php: administra cola de prioridades.
+Grafo.php: relaciones médico-paciente.
+Medicamento.php + AVLTree.php: búsqueda eficiente por nombre.
+
+📅 Día 6 – Estilización visual y validación funcional completa
+Se aplicaron mejoras visuales y de experiencia de usuario al frontend mediante CSS personalizado. Entre los estilos aplicados se destacan:
+División de la pantalla de inicio con imagen de fondo translúcida.
+Botones bien definidos para separar flujos (paciente vs. personal).
+Interfaz de login con diseño moderno, campo de contraseña con botón de mostrar/ocultar.
+Formularios con placeholders descriptivos y validación básica.
+
+✅ Pruebas realizadas:
+Registro exitoso de pacientes desde frontend.
+
+Inserción de turnos en base de datos con validación de urgencia.
+
+Visualización y recuperación de turnos desde el panel de personal.
+
+Prueba de login funcional para personal médico/administrativo.
+
+🧩 Conclusión del Sprint 3
+Este sprint marcó una evolución integral del sistema, tanto a nivel visual como lógico. Se dejó atrás el esquema inicial desordenado y se consolidó una arquitectura más robusta y modular.
+Gracias a la nueva estructura de base de datos y la correcta segmentación de vistas, el sistema se encuentra preparado para escalar hacia funcionalidades más complejas como:
+*Panel administrativo de gestión de medicamentos.
+*Seguimiento de pacientes internados.
+*Reportes estadísticos diarios y mensuales.
+El equipo logró cumplir los objetivos propuestos y dejó establecida una base sólida para el Sprint 4.
+
+### ---------------------------------Sprint 4---------------------------------
+Extensión de funcionalidades, segmentación visual y gestión avanzada de datos
+
+📅 Día 1 – Planificación de nuevas funcionalidades y división del trabajo
+El equipo inició el Sprint 4 realizando una planificación detallada basada en los avances logrados durante el Sprint 3. 
+Se propusieron nuevas funcionalidades orientadas a mejorar la operatividad del sistema hospitalario desde la perspectiva tanto del paciente como del personal médico. 
+Se definieron tres módulos clave a implementar:
+
+*Formulario de solicitud de turnos refinado.
+
+*Visualización dinámica de la cola de espera.
+
+*Consulta del historial de pacientes atendidos.
+
+Se asignaron tareas específicas entre frontend y backend, priorizando un enfoque modular.
+
+📅 Día 2 – Rediseño visual del formulario de solicitud de turnos
+Se desarrolló una nueva versión de solicitar_turno.html, mejorando tanto su estética como la experiencia de usuario. Entre los cambios aplicados se destacan:
+
+*Interfaz centrada y responsiva (form-wrapper).
+
+*Estilos modernos, con campos suavemente delineados, sombras y paleta en tonos azules.
+
+*Inclusión de campos nuevos como nombre y apellido diferenciados.
+
+🔗 El formulario envía los datos al backend usando POST hacia registrar.php.
+
+📄 Archivo: solicitar_turno.html
+📁 Ubicación: /frontend/views/solicitar_turno.html
+
+📅 Día 3 – Implementación del módulo de visualización de la cola de espera
+Se creó una nueva vista para el personal administrativo y médico: ver_cola.html. Esta pantalla permite consultar en tiempo real los pacientes registrados, organizados por urgencia.
+
+🛠 Características implementadas:
+
+Tabla HTML con cabecera fija y estilos integrados.
+
+Uso de fetch() para consumir datos desde ver_cola.php (backend).
+
+Renderización dinámica del contenido en el navegador.
+
+Mensajes automáticos en caso de que la cola esté vacía o haya errores de carga.
+
+📄 Archivo: ver_cola.html
+📁 Ubicación: /frontend/views/ver_cola.html
+
+📅 Día 4 – Desarrollo del módulo de historial de consultas médicas
+Se diseñó e integró el módulo de historial clínico, permitiendo al personal visualizar todas las consultas anteriores realizadas por pacientes.
+
+💡 Detalles técnicos:
+
+Se utilizó JavaScript para cargar el contenido desde ver_historial_consultas.php.
+
+Las consultas se muestran en una tabla organizada por ID, fecha, paciente, DNI y descripción.
+
+Se manejan errores del lado del servidor con mensajes claros en pantalla.
+
+El código es reutilizable y preparado para paginación futura.
+
+📄 Archivo: ver_historial_consultas.html
+📁 Ubicación: /frontend/views/ver_historial_consultas.html
+
+📅 Día 5 – Validaciones, limpieza de código y conexión entre vistas
+Se validó que los nuevos módulos interactúen correctamente con la base de datos ya existente (hospital_gestion). Se realizaron ajustes:
+
+Corrección de rutas relativas entre vistas.
+
+Revisión del uso de controladores (controllers/) para asegurar modularidad.
+
+Vinculación de la vista de historial y cola al panel del administrador con botones de navegación.
+
+🧪 Se verificó el correcto registro de nuevos turnos y su aparición inmediata en la cola, además de la correcta actualización del historial tras cada consulta registrada.
+
+📅 Día 6 – Revisión general, identificación de errores y lecciones aprendidas
+Durante la última jornada, el equipo identificó una inconsistencia crítica: el historial de pacientes no se actualizaba en ciertos casos debido a una validación incompleta en el backend. Este problema se debió a que no todos los registros de atención estaban siendo correctamente insertados si faltaban ciertos campos (como descripción).
+
+🔧 Solución aplicada:
+
+Se ajustó la validación en ver_historial_consultas.php.
+
+Se modificaron los controladores para permitir valores opcionales controlados y se agregó manejo de excepciones.
+
+📌 Lección aprendida:
+La validación de datos no debe depender exclusivamente del frontend. 
+El backend debe contemplar escenarios faltantes y retornar mensajes de error amigables para facilitar la depuración y experiencia de usuario.
+
+🔚 Tareas pendientes para cierre de Sprint
+Integrar función de finalización de consulta (registro en historial desde botón en interfaz).
+Añadir botón para cargar medicamentos visualmente.
+Mostrar al paciente el estado actual de su turno tras registrarse (esperando, en consulta, atendido).
+Crear módulo para gestión de usuarios (crear cuentas para médicos y admins).
